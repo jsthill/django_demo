@@ -126,6 +126,7 @@ def get_exam_result(request, course_id, submission_id):
     submission = get_object_or_404(Submission, pk=submission_id)
 
     answer_set = []
+    global choices
     choices = submission.chocies.all()
     for choice in choices:
         answer_set.append(choice)
@@ -153,5 +154,6 @@ def show_exam_result(request, course_id, grade):
     context['grade'] = grade
     context['course_id'] = course_id
     context['course'] = get_object_or_404(Course, pk=course_id)
+    context['choices'] = choices
 
     return render(request, template_name, context)
